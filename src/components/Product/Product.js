@@ -1,6 +1,6 @@
 import styles from './Product.module.scss';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import ProductForm from '../ProductForm/ProductForm';
 import ProductImage from '../ProductImage/ProductImage';
 
@@ -8,7 +8,7 @@ const Product = (props) => {
 	const [currentSize, setCurrentSize] = useState(props.sizes[0].name);
 	const [currentColor, setCurrentColor] = useState(props.colors[0]);
 
-	const getModifiedPrice = (basePrice) => {
+	const getModifiedPrice = useMemo(() => {
 		// access objects with additionalPrice of currentSize
 		const selectedSize = props.sizes.find(
 			(size) => size.name === currentSize
@@ -16,7 +16,7 @@ const Product = (props) => {
 		const additionalPrice = selectedSize ? selectedSize.additionalPrice : 0;
 
 		return props.basePrice + additionalPrice;
-	};
+	}, [currentSize, props.basePrice, props.sizes]);
 
 	return (
 		<article className={styles.product}>
@@ -27,7 +27,7 @@ const Product = (props) => {
 				<header>
 					<h2 className={styles.name}>{props.title}</h2>
 					<span className={styles.price}>
-						Price: {getModifiedPrice()}$
+						Price: {getModifiedPrice}$
 					</span>
 				</header>
 				<ProductForm

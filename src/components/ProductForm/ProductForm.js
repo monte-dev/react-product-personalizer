@@ -23,7 +23,7 @@ const ProductForm = ({
 		console.log({
 			name: name,
 			title: title,
-			totalPrice: getModifiedPrice(basePrice),
+			totalPrice: getModifiedPrice,
 			size: currentSize,
 			color: currentColor,
 		});
@@ -62,7 +62,7 @@ ProductForm.propTypes = {
 	currentColor: PropTypes.string,
 	setCurrentColor: PropTypes.func,
 	setCurrentSize: PropTypes.func,
-	getModifiedPrice: PropTypes.func,
+	getModifiedPrice: PropTypes.number,
 };
 
 export default ProductForm;
